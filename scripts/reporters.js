@@ -1,5 +1,0 @@
-class reporter {
-  constructor() {}
-
-  drawReporter() {}
-}
