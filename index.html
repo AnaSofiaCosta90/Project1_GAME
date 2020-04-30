@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Project1-GAME</title>
-
-    <!--<link rel="stylesheet" href="scripts/qqstyle.css" />-->
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <canvas id="canvas" width="900" height="600"> </canvas>
+    <section id="leftSide">
+      <h1 id="title">Fellow Americans</h1>
+      <aside>
+        <button id="start">Start</button>
+        <button id="pause">Pause</button>
+      </aside>
+    </section>
+
+    <section id="canvas_container">
+      <canvas id="canvas" width="900" height="600"> </canvas>
+    </section>
+
     <script src="scripts/newspaper.js"></script>
     <script src="scripts/player.js"></script>
     <script src="scripts/background.js"></script>

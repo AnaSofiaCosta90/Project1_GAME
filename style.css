@@ -1,3 +1,37 @@
 body {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: wheat;
+}
+
+#leftSide {
+  padding: 2em;
+  margin-right: 2em;
+  background-color: yellow;
+}
+
+#title {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#start,
+#pause {
+  display: block;
+  width: 9em;
+  height: 3em;
+  margin-bottom: 1em;
+  text-align: center;
+  font: inherit;
+  font-family: 'cursive';
+}
+
+section {
+  background-color: yellow;
+}
+
+canvas {
+  margin: 0;
 }
