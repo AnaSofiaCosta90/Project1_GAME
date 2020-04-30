@@ -11,6 +11,9 @@ class Reporter {
 
     this.reporterImage = new Image();
     this.reporterImage.src = 'Images/reporter.png';
+
+    // novos newspapers
+    this.newspapersArr = [];
   }
 
   // prettier-ignore
@@ -18,10 +21,16 @@ class Reporter {
     this.game.context.drawImage(this.reporterImage, this.reporterX, this.reporterY, this.reporterWidth, this.reporterHeight);
   }
 
+  createNewspaper() {
+    //console.log('throwing');
+    this.newspapersArr.push(new Newspaper(this.game, this.reporterX, this.reporterY));
+  }
   throwNews() {
-    console.log('throwing');
-    this.paper = new Newspaper(this.game);
-    this.paper.drawNewspaper(this.game, this.reporterX, this.reporterY);
+    for (let news of this.newspapersArr) {
+      news.updatePosition();
+      news.drawNewspaper();
+    }
+
     //if Level1 - reporter throws 10 newspapers, each 4 seconds
     // if Level2 - 2 reporters throws 20 newspapers, each random time?
     //if Level3 - 4 reporters throws 35newspapers, each random time?

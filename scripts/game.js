@@ -1,22 +1,30 @@
+// prettier-ignore
 class Game {
   constructor($canvas) {
-    this.game = 3;
-    this.$canvas = $canvas;
-    this.context = this.$canvas.getContext('2d');
+    this.game       = 3;
+    this.$canvas    = $canvas;
+    this.context    = this.$canvas.getContext('2d');
     this.background = new Background(this);
-    this.player = new Player(this);
-    this.reporter = new Reporter(this);
+    this.player     = new Player(this);
+    this.reporter   = new Reporter(this);
+    // intervalo entre os lançamentos dos newspapers
+    this.newspaperThrowTimer = 0;
+    this.newspaperThrowInterval = 3000;
+    this.victory = false;
+    this.defeat  = false;
   }
   start() {
-    this.victory = false;
-    this.defeat = false;
+
     this.gameStep();
     this.loop();
+    
+  
   }
 
   drawEverything() {
     this.context.clearRect(0, 0, 1280, 900);
     this.background.drawBackground();
+    this.background.drawGrid();
     this.player.drawPlayer();
     this.player.drawArrow(this.player.degrees);
     this.reporter.drawReporter();
@@ -29,6 +37,10 @@ class Game {
 
       // React based on the key pressed
       switch (event.keyCode) {
+        case 32:
+          this.player.fakeNews();
+          break;
+
         case 37:
           this.player.rotateLeft();
           break;
@@ -38,43 +50,75 @@ class Game {
           break;
       }
 
-      // collisions box --> com a lixívia e com os jornais
     });
   }
 
-  win() {}
+  drawbuttons() {
 
-  lose() {}
 
-  loop() {
-    this.drawEverything();
-    window.requestAnimationFrame(() => this.loop());
+    let button = document.createElement("BUTTON"); 
+    button.innerHTML = "Restart";                   
+    document.body.appendChild(button);               
+
+  } // botões restart quit etc..
+
+  win() {
+    console.log('Game over')
+    this.context.clearRect(0, 0, 1280, 900);
+    this.victory=true;
+    this.background.drawBackground()
+    this.victoryImg = new Image()
+    this.victoryImg.src = 'Images/trump.png'
+    this.context.drawImage(this.victoryImg, 50,50)   
+    this.context.fillStyle = "rgba(255, 255, 255, 0.7)";
+    this.context.fillRect(0, 0, 900,600)
+    this.context.fillStyle = "rgb(255, 0, 0)";
+    this.context.font = "100px Impact";
+    this.context.fillText("Trump Rules", 350, 300);
+    this.drawbuttons()
+  }
+
+  lose() {
+    console.log('Game over')
+    this.context.clearRect(0, 0, 1280, 900);
+    this.defeat=true;
+    this.background.drawBackground()
+
+    this.context.fillStyle = "rgba(255, 255, 255, 0.7)";
+    this.context.fillRect(0, 0, 900,600)
+    this.context.fillStyle = "rgb(255, 0, 0)";
+    this.context.font = "100px Impact";
+    this.context.fillText("GAME OVER", 350, 300);
+    this.$canvas    = $canvas;
+    this.context    = this.$canvas.getContext('2d');
+    this.loseImg = new Image()                    // -------------------------------------------------------------------------
+    this.loseImg.src = 'Images/trump.png'
+    this.context.drawImage(this.loseImg, 0 , 200,200,200) 
+    console.log()  // -------------------------------------------------------------------------
+    
+    this.drawbuttons()
+    // Mostrar imagem com o game over (pode ser cópia do background com o outro trump e a dizer game over) e um botão restart (que tens que fazer no html)
+    
+  }   
+
+  runLogic(timestamp) {
+    if (this.newspaperThrowTimer < timestamp - this.newspaperThrowInterval) {
+      this.newspaperThrowTimer = timestamp;
+      this.reporter.createNewspaper();
+    }
+  }
+
+  loop(timestamp) {
+    if (this.defeat === false){
+      this.drawEverything();
+      this.reporter.throwNews();
+      //const collided = newspaper.checkCollision(player);
+      this.runLogic(timestamp);
+      window.requestAnimationFrame((timestamp) => this.loop(timestamp));
+
+      if (this.player.lifes <= 0) {
+        this.lose();
+      }
+    }
   }
 }
-
-// GOAL: get 10 lifes
-
-//START: - 3 lifes --> 3 paper rolls
-//       - Trump saying "My fellow Americans"
-//       - Music starts after that --> Crazy Frog- AxelF
-//       - One reporter throwing newspapers
-
-// RULES:
-// 1) Each time you can defend yourself you get 1/3 of a bleach bootle
-//    - Trumps shout "Fake News!"
-//    - show in which level is the bleach bottle
-//    - Trump drinks the bleach bottle when he defends himself 3 times
-
-// 2) One full bleach bottle gives you a life
-//    - each time that you fill a bleach bottle, a toilet paper appears
-
-// 3) Each time you get hit you lose a life
-//    - Trumps say "AI" do dame tu cosita
-
-//LEVELS:
-// 1 --> one reporter throws newspapers each six seconds
-// 2 --> two reporters (appears in random positions) throws newspapers each random seconds
-// 3 --> four reporters appears in random positions and throws newspapers each random seconds
-
-// FLOATING IDEAS:
-//   - videos: quiet, quiet, quiet / wait, wait, wait
