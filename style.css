@@ -4,34 +4,43 @@ body {
   align-items: center;
   margin: 0 auto;
   min-height: 100vh;
-  background-color: wheat;
+  background-image: url('Images/USA.png');
+  background-size: 100%;
 }
 
-#leftSide {
+.leftSide {
   padding: 2em;
   margin-right: 2em;
-  background-color: yellow;
 }
 
 #title {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'algerian';
+  font-size: 3em;
+  color: red;
 }
 
 #start,
-#pause {
+#pause,
+#restart {
   display: block;
   width: 9em;
   height: 3em;
   margin-bottom: 1em;
+  margin-left: 9em;
   text-align: center;
   font: inherit;
   font-family: 'cursive';
 }
 
+.buttons {
+  background-color: none;
+}
+
 section {
-  background-color: yellow;
+  background-color: none;
 }
 
 canvas {
   margin: 0;
+  background-color: rgba(255, 255, 255, 0.5);
 }

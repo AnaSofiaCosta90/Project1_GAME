@@ -21,11 +21,30 @@ class Game {
 
     this.newspapers = [];
 
+    this.isRunning = true;
+
     this.setKeyBindings();
   }
 
   start() {
     this.loop();
+  }
+
+  pause() {
+    console.log(this.isRunning);
+
+    this.isRunning = !this.isRunning;
+    if (this.isRunning == true) {
+      this.start();
+    }
+
+    window.addEventListener('load', () => {
+      let audio = document.getElementById('audio');
+      audio.preload = 'auto';
+    });
+    $buttonStart.addEventListener('click', () => {
+      audio.play();
+    });
   }
 
   setKeyBindings() {
@@ -52,19 +71,23 @@ class Game {
   }
 
   win() {
-    console.log('Game over');
+    console.log('Win');
     this.context.clearRect(0, 0, 1280, 900);
     this.victory = true;
     this.background.drawBackground();
-    this.victoryImg = new Image();
-    this.victoryImg.src = 'Images/trump.png';
-    this.context.drawImage(this.victoryImg, 50, 50);
+
     this.context.fillStyle = 'rgba(255, 255, 255, 0.7)';
     this.context.fillRect(0, 0, 900, 600);
     this.context.fillStyle = 'rgb(255, 0, 0)';
     this.context.font = '100px Impact';
-    this.context.fillText('Trump Rules', 350, 300);
-    this.drawbuttons();
+    this.context.fillText(`\"I'm the best!\"`, 250, 325);
+    this.$canvas = $canvas;
+    this.context = this.$canvas.getContext('2d');
+    this.winImg = new Image();
+    this.winImg.src = 'Images/win2-removebg-preview.png';
+    this.winImg.addEventListener('load', () => {
+      this.context.drawImage(this.winImg, 75, 180, 200, 200);
+    });
   }
 
   lose() {
@@ -80,25 +103,19 @@ class Game {
     this.context.fillText('GAME OVER', 350, 300);
     this.$canvas = $canvas;
     this.context = this.$canvas.getContext('2d');
-    this.loseImg = new Image(); // -------------------------------------------------------------------------
+    this.loseImg = new Image();
     this.loseImg.src = 'Images/lose2-removebg-preview (1).png';
     this.loseImg.addEventListener('load', () => {
       this.context.drawImage(this.loseImg, 75, 180, 200, 200);
     });
 
-    console.log('lose'); // -------------------------------------------------------------------------
-
-    this.drawbuttons();
-    // Mostrar imagem com o game over (pode ser cópia do background com o outro trump e a dizer game over) e um botão restart (que tens que fazer no html)
+    console.log('lose');
   }
-
   runLogic(timestamp) {
     for (let newspaper of this.newspapers) {
       newspaper.updatePosition();
     }
-    //if Level1 - reporter throws 10 newspapers, each 4 seconds
-    // if Level2 - 2 reporters throws 20 newspapers, each random time?
-    //if Level3 - 4 reporters throws 35newspapers, each random time?
+
     if (this.newspaperThrowTimer < timestamp - this.newspaperThrowInterval) {
       this.newspaperThrowInterval = this.newspaperThrowInterval * 0.98;
       this.newspaperThrowTimer = timestamp;
@@ -115,11 +132,11 @@ class Game {
   }
 
   loop(timestamp) {
-    if (this.defeat === false) {
+    if (this.defeat === false && this.isRunning === true) {
       this.runLogic(timestamp);
       this.drawEverything();
       if (this.player.lifes <= 0) {
-        this.lose();
+        this.win();
       }
       window.requestAnimationFrame((timestamp) => this.loop(timestamp));
     }
@@ -128,7 +145,6 @@ class Game {
   drawEverything() {
     this.context.clearRect(0, 0, 1280, 900);
     this.background.drawBackground();
-    this.background.drawGrid();
     this.player.draw();
 
     for (let reporter of this.reporters) {

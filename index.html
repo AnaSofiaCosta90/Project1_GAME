@@ -9,17 +9,21 @@
   </head>
 
   <body>
-    <section id="leftSide">
+    <section class="leftSide">
       <h1 id="title">Fellow Americans</h1>
-      <aside>
-        <button id="start">Start</button>
-        <button id="pause">Pause</button>
+      <aside class="buttons">
+        <button id="start" onclick="game.start()">Start</button>
+        <button id="pause" onclick="game.pause()">Pause</button>
+        <button id="restart" onclick="game.start()">Restart</button>
       </aside>
     </section>
 
     <section id="canvas_container">
       <canvas id="canvas" width="900" height="600"> </canvas>
     </section>
+    <audio id="audio" preload="auto">
+      <source src="sons/startGame.mp3" type="audio/mp3" preload="none" />
+    </audio>
 
     <script src="scripts/newspaper.js"></script>
     <script src="scripts/player.js"></script>

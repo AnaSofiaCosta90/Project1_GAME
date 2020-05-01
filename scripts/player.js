@@ -87,7 +87,7 @@ class Player {
         }
         const indexOfCurrentNewspaper = this.game.newspapers.indexOf(newspaper);
         this.game.newspapers.splice(indexOfCurrentNewspaper, 1);
-        // this.game.newspapers = [];
+        this.game.newspapers = [];
       }
     }
   }
@@ -104,6 +104,7 @@ class Player {
   avoidNewspaper() {
     if (this.bleach < 3) {
       this.bleach++;
+      //FALTA SOM
     }
   }
 
@@ -132,12 +133,14 @@ class Player {
 
   drawScore() {
     const context = this.game.context;
+    context.fillStyle = '#c0c0c0';
+    context.fillRect(40, 20, 60, 45);
     context.fillStyle = 'rgb(255, 0, 0)';
     context.font = '18px Impact';
-    context.fillText(`LIVES:`, 50, 50);
+    context.fillText(`LIFES:`, 50, 50);
 
     for (let i = 0; i < this.lifes; i++) {
-      context.drawImage(this.toiletPaperImg, 100 + i * 50, 30, 50, 50);
+      context.drawImage(this.toiletPaperImg, 100 + i * 50, 20, 50, 50);
     }
   }
 
@@ -180,12 +183,12 @@ class Player {
 
     if (bleach === 1) {
       //  context.drawImage(this.bottleBleachImg, 0, 0, 645, 220, this.game.$canvas.width - 100, 50, 75,33)
-      context.drawImage(this.bottleBleachImg, 0, (height * 2) / 3, 645, 660, rightLimit, 66, 75, 66);
+      context.drawImage(this.bottleBleachImg, 0, (height * 2) / 3, 145, 150, rightLimit, 66, 75, 66);
     } else if (bleach === 2) {
-      // context.drawImage(this.bottleBleachImg, 0, 0, 645, 440, this.game.$canvas.width - 100, 50, 75, 66)
-      context.drawImage(this.bottleBleachImg, 0, (height * 1) / 3, 645, 660, rightLimit, (66 * 2) / 3, 75, 66);
+      // context.drawImage(this.bottleBleachImg, 0, 0, 145, 440, this.game.$canvas.width - 100, 50, 75, 66)
+      context.drawImage(this.bottleBleachImg, 0, (height * 1) / 3, 145, 150, rightLimit, (66 * 2) / 3, 75, 66);
     } else if (bleach === 3) {
-      context.drawImage(this.bottleBleachImg, 0, 0, 645, 660, rightLimit, (66 * 1) / 3, 75, 66);
+      context.drawImage(this.bottleBleachImg, 0, 0, 145, 150, rightLimit, (66 * 1) / 3, 75, 66);
     }
   }
 
