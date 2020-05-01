@@ -17,6 +17,12 @@ body {
   font-family: 'algerian';
   font-size: 3em;
   color: red;
+  margin-left: 1.6em;
+}
+
+.instructions {
+  margin-bottom: 2em;
+  color: #f2ed61;
 }
 
 #start,
@@ -26,7 +32,7 @@ body {
   width: 9em;
   height: 3em;
   margin-bottom: 1em;
-  margin-left: 9em;
+  margin-left: 14em;
   text-align: center;
   font: inherit;
   font-family: 'cursive';

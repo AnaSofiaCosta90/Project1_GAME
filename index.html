@@ -11,19 +11,34 @@
   <body>
     <section class="leftSide">
       <h1 id="title">Fellow Americans</h1>
+      <h2 class="instructions">Yell at reporters and avoid Fake News. Drink bleach to win!</h2>
       <aside class="buttons">
-        <button id="start" onclick="game.start()">Start</button>
-        <button id="pause" onclick="game.pause()">Pause</button>
-        <button id="restart" onclick="game.start()">Restart</button>
+        <button id="start">Start</button>
+        <button id="pause">Pause</button>
+        <button id="restart">Restart</button>
       </aside>
+      
     </section>
 
     <section id="canvas_container">
       <canvas id="canvas" width="900" height="600"> </canvas>
     </section>
-    <audio id="audio" preload="auto">
+  <!--  <audio id="audio" preload="auto">
       <source src="sons/startGame.mp3" type="audio/mp3" preload="none" />
+    </audio>-->
+    <audio id="getHit" preload="auto">
+      <source src="sons/getHit.mp3" type="audio/mp3" preload="none" />
     </audio>
+  </audio>
+  <audio id="lose" preload="auto">
+    <source src="sons/lose.mp3" type="audio/mp3" preload="none" />
+  </audio>
+  <audio id="win" preload="auto">
+    <source src="sons/win.mp3" type="audio/mp3" preload="none" />
+  </audio>
+  <audio id="drinkBleach" preload="auto">
+    <source src="sons/drinkBleach.mp3" type="audio/mp3" preload="none" />
+  </audio>
 
     <script src="scripts/newspaper.js"></script>
     <script src="scripts/player.js"></script>
