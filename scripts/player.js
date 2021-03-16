@@ -60,6 +60,12 @@ class Player {
 
   fakeNews() {
     this.status = 'fakeNews';
+    window.addEventListener('load', () => {
+      let fakeNews = document.getElementById('fakeNews');
+      fakeNews.preload = 'auto';
+    });
+    // audio.pause();
+    fakeNews.play();
 
     setTimeout(() => {
       this.status = 'basic';
